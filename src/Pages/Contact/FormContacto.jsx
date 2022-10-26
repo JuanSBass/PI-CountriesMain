@@ -1,35 +1,7 @@
-import React, { useState } from "react";
-import emailjs from "@emailjs/browser";
+
 import styled from "styled-components";
-import { ModalContact } from "../../Components/ModalContact";
 
 const FormContacto = () => {
-  const [modal, setModal] = useState(false);
-  const [input, setInput] = useState({
-    user_name: "",
-    user_email: "",
-    user_message: "",
-  });
-  const sendEmail = (event) => {
-    event.preventDefault();
-    setModal(!modal);
-    setTimeout(() => {
-      setModal(!modal);
-    }, "1500");
-    emailjs
-      .sendForm(
-        "service_9qmrtn3", //? service ID
-        "template_l0b7d5s", //? template ID
-        event.target,
-        "KjhABlSMS8yiq-raI" //? API key
-      )
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error));
-  };
-
-  const handleInputChange = (event) => {
-    setInput({ ...input, [event.target.name]: event.target.value });
-  };
 
   return (
     <ContactContainerForm>
@@ -80,47 +52,7 @@ const FormContacto = () => {
             como de la imágen es simulada para mostrar en esta aplicación web
             los conocimientos adquiridos durante el bootcamp #SoyHenry💛.
           </p>
-          <ModalContact state={modal} changeState={setModal} />
         </section>
-        <form id="form-container" onSubmit={sendEmail}>
-          <h1>Contáctame ;)</h1>
-          <input
-            type="text"
-            name="user_name"
-            placeholder="Nombre"
-            value={input.user_name}
-            onChange={handleInputChange}
-          />
-          <hr />
-
-          <input
-            type="email"
-            name="user_email"
-            placeholder="Email"
-            value={input.user_email}
-            onChange={handleInputChange}
-          />
-          <hr />
-
-          <label>Mensaje</label>
-          <textarea
-            name="user_message"
-            id=""
-            cols="30"
-            rows="10"
-            value={input.user_message}
-            onChange={handleInputChange}
-          ></textarea>
-          <hr />
-          <button
-            type="submit"
-            disabled={
-              !input.user_name || !input.user_email || !input.user_message
-            }
-          >
-            Enviar
-          </button>
-        </form>
       </section>
     </ContactContainerForm>
   );

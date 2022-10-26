@@ -12,13 +12,15 @@ import {
 import CardPais from "./CardPais";
 import footerImg from "../../Img/FooterPagePICountries.png";
 import Loading from "../../Components/Loading";
+import Pagination from "./Paginado"
 
 export default function Countries(props) {
   const dispatch = useDispatch();
   const [state, setState] = useState({
     country: "",
   });
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [countriesPerPage, setCountriesPerPage] = useState(9);
   const [orden, setOrden] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -31,54 +33,54 @@ export default function Countries(props) {
     }, "1500");
   }, [dispatch]);
 
+  
   const handleChange = (event) => {
-    setCurrentPage(0);
+    setCurrentPage(1);
     setState({ country: event.target.value });
     dispatch(getCountry(state.country));
   };
-
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(getCountry(state.country));
     setState({ country: "" });
   };
-
+  
   const countries = useSelector((state) => state.countries);
   console.log(countries);
-
+  
   const activities = useSelector((state) => state.allActivities);
   let actName = [];
   activities.map(act => actName.push(act.name))
   let actSet = [...new Set(actName)]
+  
+  const indexOfLastCountry = currentPage * countriesPerPage
+  const indexOfFirstCountry = indexOfLastCountry - countriesPerPage 
+  const currentCountries = countries.slice(indexOfFirstCountry, indexOfLastCountry)
 
-  const paginado = () => {
-    if (state.country.length === 0)
-      return countries.slice(currentPage, currentPage + 9);
-    // if(currentPage === 0) return countries.slice(0,9);
-    return countries.slice(currentPage, currentPage + 9);
+  const nextPage = (pageNumber) => {
+    if(currentPage < Math.ceil(countries.length / countriesPerPage))
+    setCurrentPage(pageNumber);
   };
-
-  const nextPage = () => {
-    if (countries.length > currentPage + 9) setCurrentPage(currentPage + 9);
-  };
-
-  const prevPage = () => {
-    if (currentPage > 0) setCurrentPage(currentPage - 9);
+  
+  const prevPage = (pageNumber) => {
+    if(currentPage > 1)
+    setCurrentPage(pageNumber);
   };
 
   const filterByContinent = (event) => {
-    setCurrentPage(0);
+    setCurrentPage(1);
     dispatch(filterCountriesByContinent(event.target.value));
   };
 
   const filteredByActivity = (event) => {
-    setCurrentPage(0);
+    setCurrentPage(1);
     dispatch(filterByActivities(event.target.value));
   };
 
   const handleOrder = (event) => {
     event.preventDefault();
-    setCurrentPage(0);
+    setCurrentPage(1);
     dispatch(orderByName(event.target.value));
     setOrden(`Ordenado ${event.target.value}`);
   };
@@ -136,22 +138,17 @@ export default function Countries(props) {
           <p>Continente</p>
         </div>
       </FiltCont>
-          <PaginadoSection>
-            <button className="next" onClick={prevPage}>
-              <div className="arrow-wrapper">
-                <div className="arrow-back"></div>
-              </div>
-            </button>
-            <button className="next" onClick={nextPage}>
-              <div className="arrow-wrapper">
-                <div className="arrow"></div>
-              </div>
-            </button>
-          </PaginadoSection>
+          <Pagination 
+          nextPage={nextPage}
+          prevPage={prevPage}
+          currentPage={currentPage}
+          countriesPerPage={countriesPerPage} 
+          countries={countries.length}
+          />
 
         {loading ? (<Loading />) : (
       <PaisesContainer>
-        {paginado()?.map((country) => (
+        {currentCountries?.map((country) => (
           <CardPais
           key={country.countryId}
           id={country.countryId}
@@ -256,84 +253,84 @@ const PaginaPrincipal = styled.main`
   }
 `;
 
-const PaginadoSection = styled.div`
-  display: flex;
-  justify-content: space-around;
-  width: 30rem;
-  margin: 1rem auto;
-  padding: 1rem;  
-  border-radius: 10rem;
+// const PaginadoSection = styled.div`
+//   display: flex;
+//   justify-content: space-around;
+//   width: 30rem;
+//   margin: 1rem auto;
+//   padding: 1rem;  
+//   border-radius: 10rem;
 
-  .next {
-    box-sizing: border-box;
-    border: 0;
-    border-radius: 2rem;
-    color: #fff;
-    padding: 1em 1.8em;
-    background: #de7456;
-    display: flex;
-    transition: 0.4s background;
-    align-items: center;
-    gap: 0.6em;
-    font-weight: bold;
+//   .next {
+//     box-sizing: border-box;
+//     border: 0;
+//     border-radius: 2rem;
+//     color: #fff;
+//     padding: 1em 1.8em;
+//     background: #de7456;
+//     display: flex;
+//     transition: 0.4s background;
+//     align-items: center;
+//     gap: 0.6em;
+//     font-weight: bold;
 
-    .arrow-wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+//     .arrow-wrapper {
+//       display: flex;
+//       justify-content: center;
+//       align-items: center;
+//     }
 
-    .arrow,
-    .arrow-back {
-      margin-top: 1px;
-      width: 1rem;
-      background: #de7456;
-      height: 2px;
-      position: relative;
-      transition: 0.2s;
-    }
+//     .arrow,
+//     .arrow-back {
+//       margin-top: 1px;
+//       width: 1rem;
+//       background: #de7456;
+//       height: 2px;
+//       position: relative;
+//       transition: 0.2s;
+//     }
 
-    .arrow::before {
-      content: "";
-      position: absolute;
-      border: solid #fff;
-      border-width: 0 2px 2px 0;
-      display: inline-block;
-      top: -3px;
-      right: 5px;
-      transition: 0.4s;
-      padding: 3px;
-      transform: rotate(-45deg);
-    }
+//     .arrow::before {
+//       content: "";
+//       position: absolute;
+//       border: solid #fff;
+//       border-width: 0 2px 2px 0;
+//       display: inline-block;
+//       top: -3px;
+//       right: 5px;
+//       transition: 0.4s;
+//       padding: 3px;
+//       transform: rotate(-45deg);
+//     }
 
-    .arrow-back::before {
-      content: "";
-      position: absolute;
-      border: solid #fff;
-      border-width: 0 2px 2px 0;
-      display: inline-block;
-      top: -3px;
-      left: 5px;
-      transition: 0.4s;
-      padding: 3px;
-      transform: rotate(135deg);
-    }
+//     .arrow-back::before {
+//       content: "";
+//       position: absolute;
+//       border: solid #fff;
+//       border-width: 0 2px 2px 0;
+//       display: inline-block;
+//       top: -3px;
+//       left: 5px;
+//       transition: 0.4s;
+//       padding: 3px;
+//       transform: rotate(135deg);
+//     }
 
-    &:hover {
-      background-color: #2b3240;
-    }
+//     &:hover {
+//       background-color: #2b3240;
+//     }
 
-    &:hover .arrow,
-    :hover .arrow-back {
-      background-color: #fff;
-    }
+//     &:hover .arrow,
+//     :hover .arrow-back {
+//       background-color: #fff;
+//     }
 
-    &:hover .arrow:before {
-      right: 0;
-    }
+//     &:hover .arrow:before {
+//       right: 0;
+//     }
 
-    &:hover .arrow-back:before {
-      left: 0;
-    }
-  }
-`;
+//     &:hover .arrow-back:before {
+//       left: 0;
+//     }
+//   }
+// `;
