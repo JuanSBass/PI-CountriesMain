@@ -12,7 +12,7 @@ export const GET_ALL_ACTIVITIES = "GET_ALL_ACTIVITIES";
 export function getCountry(name) {
   return function (dispatch) {
     return axios
-      .get(`http://localhost:3001/countries?name=${name}`)
+      .get(`/countries?name=${name}`)
       .then((response) => response.data)
       .then((data) => {
         dispatch({ type: GET_COUNTRIE, payload: data });
@@ -26,7 +26,7 @@ export function getCountry(name) {
 export function getAllCountries() {
   return function (dispatch) {
     return axios
-      .get("http://localhost:3001/countries")
+      .get("/countries")
       .then((response) => response.data)
       .then((data) => {
         dispatch({ type: GET_ALL_COUNTRIES, payload: data });
@@ -37,7 +37,7 @@ export function getAllCountries() {
 export function getCountryDetail(id) {
   return function (dispatch) {
     return axios
-      .get(`http://localhost:3001/countries/${id}`)
+      .get(`/countries/${id}`)
       .then((response) => response.data)
       .then((data) => {
         dispatch({ type: GET_COUNTRIE_DETAIL, payload: data });
@@ -48,7 +48,7 @@ export function getCountryDetail(id) {
 export const addActivity = (input) => {
   return function (dispatch) {
     return axios
-      .post("http://localhost:3001/activities", input)
+      .post("/activities", input)
       .then((response) => response.data)
       .then((data) => {
         dispatch({
@@ -72,7 +72,7 @@ export const removeActivity = (id) => {
 export const getAllActivities = () => {
   return function (dispatch) {
     return axios
-      .get("http://localhost:3001/activities")
+      .get("/activities")
       .then((response) => response.data)
       .then((data) => {
         dispatch({ type: GET_ALL_ACTIVITIES, payload: data });
