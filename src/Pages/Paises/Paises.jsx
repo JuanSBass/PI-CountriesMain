@@ -8,6 +8,7 @@ import {
   filterByActivities,
   orderByName,
   getAllActivities,
+  clearDetail
 } from "../../actions";
 import CardPais from "./CardPais";
 import footerImg from "../../Img/FooterPagePICountries.png";
@@ -25,12 +26,13 @@ export default function Countries(props) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    dispatch(getAllCountries());
-    dispatch(getAllActivities());
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, "1500");
+      dispatch(getAllCountries());
+      dispatch(getAllActivities());
+    dispatch(clearDetail());
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+      }, "1500");
   }, [dispatch]);
 
   

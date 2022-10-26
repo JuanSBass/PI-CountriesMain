@@ -8,6 +8,7 @@ import {
   FILTER_BY_ACTIVITY,
   ORDER_BY_NAME,
   GET_ALL_ACTIVITIES,
+  CLEAR_DETAIL,
 } from "../actions";
 
 const initialState = {
@@ -123,6 +124,12 @@ function rootReducer(state = initialState, action) {
     }
   }
 
+  if(action.type === CLEAR_DETAIL){
+    return {
+      ...state,
+      countryDetail: []
+    }
+  }
   return state;
 }
 

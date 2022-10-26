@@ -8,6 +8,7 @@ export const FILTER_BY_CONTINENT = "FILTER_BY_CONTINENT";
 export const FILTER_BY_ACTIVITY = "FILTER_BY_ACTIVITY";
 export const ORDER_BY_NAME = "ORDER_BY_NAME";
 export const GET_ALL_ACTIVITIES = "GET_ALL_ACTIVITIES";
+export const CLEAR_DETAIL = "CLEAR_DETAIL";
 
 export function getCountry(name) {
   return function (dispatch) {
@@ -103,4 +104,11 @@ export function orderByName(name) {
     type: ORDER_BY_NAME,
     payload: name,
   };
+}
+
+
+export function clearDetail (){
+  return{
+    type: CLEAR_DETAIL
+  }
 }
