@@ -35,6 +35,7 @@ export default App;
 const Compo = styled.div`
   /* background-color: #43597D;
 background-color: #A0C0D6;
+ok
 background-color: #DE7456;
 background-color: #2B3240; */
 `;
