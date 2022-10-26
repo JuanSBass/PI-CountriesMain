@@ -13,6 +13,8 @@ const CardActivities = ({ id, name, season, duration, dificult, created }) => {
     if (season === "Otoño") setLinkImage(otoño);
     if (season === "Invierno") setLinkImage(invierno);
   }, [linkImage, season]);
+  const star = '★'
+  const dificultStars = star.repeat(dificult).padEnd(5, '☆');
 
   return (
     <ActivityContainer key={id}>
@@ -24,7 +26,7 @@ const CardActivities = ({ id, name, season, duration, dificult, created }) => {
         <h1>{name}</h1>
         <h2>{season}</h2>
         <p>Duración: {duration} hrs</p>
-        <p>Dificultad: {dificult}</p>
+        <p>Dificultad: {dificultStars}</p>
         <p>Creada en: {created}</p>
       </div>
     </ActivityContainer>
