@@ -12,7 +12,6 @@ export const Modal = ({ state, changeState }) => {
   );
 
   const countryIds = activities.at(-1).countryIds;
-  // console.log(countryIds);
 
   return (
     <>

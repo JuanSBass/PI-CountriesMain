@@ -106,7 +106,6 @@ export function orderByName(name) {
   };
 }
 
-
 export function clearDetail (){
   return{
     type: CLEAR_DETAIL

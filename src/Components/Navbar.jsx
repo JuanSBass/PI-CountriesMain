@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import logo from "./HOME/LogoPIprueba.png";
-// import homeIcon from "../Img/HomeIcon.png";
 
 export default function Nav() {
   return (

@@ -43,7 +43,6 @@ export default function CountryDetail(props) {
           <h1>{country.name}</h1>
           <h2>{country.capital}</h2>
           <h2>{country.continent}</h2>
-          {/* <p>{country.maps}</p> */}
         </div>
         <div className="wave-container">
           <div className="wave"></div>

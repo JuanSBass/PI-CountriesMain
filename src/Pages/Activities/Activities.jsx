@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../Components/Loading";
 import ActivitiesForm from "./ActivitiesForm";
 import bkgCalendario from "../../Img/CalendarioActivities.png";

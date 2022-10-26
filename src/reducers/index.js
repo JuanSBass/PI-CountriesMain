@@ -135,16 +135,3 @@ function rootReducer(state = initialState, action) {
 
 export default rootReducer;
 
-// const separador = (num) => {
-//   let resultado = "";
-//     let str = String(num);
-//     let aux = 0;
-//     for (let i = str.length - 1; i >= 0; i--) {
-//       if (aux % 3 === 0 && aux !== 0) {
-//         resultado = "," + resultado;
-//       }
-//       resultado = str[i] + resultado;
-//       aux++;
-//     }
-//   return resultado;
-// }
