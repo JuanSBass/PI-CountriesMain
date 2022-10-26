@@ -23,7 +23,7 @@ const Pagination = ({
       </button>
       <p className="info_pages">
         {" "}
-        Page {currentPage} of {Math.ceil(countries / countriesPerPage)}{" "}
+        Página {currentPage} de {Math.ceil(countries / countriesPerPage)}{" "}
       </p>
       <button className="next" onClick={() => nextPage(currentPage + 1)}>
         <div className="arrow-wrapper">
