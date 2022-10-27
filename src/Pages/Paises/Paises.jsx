@@ -8,12 +8,13 @@ import {
   filterByActivities,
   orderByName,
   getAllActivities,
-  clearDetail
+  clearDetail,
 } from "../../actions";
 import CardPais from "./CardPais";
 import footerImg from "../../Img/FooterPagePICountries.png";
 import Loading from "../../Components/Loading";
-import Pagination from "./Paginado"
+import Pagination from "./Paginado";
+import { NotFound } from "../../Components/NotFound";
 
 export default function Countries(props) {
   const dispatch = useDispatch();
@@ -26,48 +27,50 @@ export default function Countries(props) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-      dispatch(getAllCountries());
-      dispatch(getAllActivities());
+    dispatch(getAllCountries());
+    dispatch(getAllActivities());
     dispatch(clearDetail());
-      setLoading(true);
-      setTimeout(() => {
-        setLoading(false);
-      }, "1500");
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, "1500");
   }, [dispatch]);
 
-  
   const handleChange = (event) => {
     setCurrentPage(1);
     setState({ country: event.target.value });
     dispatch(getCountry(state.country));
   };
-  
+
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(getCountry(state.country));
     setState({ country: "" });
   };
-  
+
   const countries = useSelector((state) => state.countries);
   console.log(countries);
-  
+
   const activities = useSelector((state) => state.allActivities);
   let actName = [];
-  activities.map(act => actName.push(act.name))
-  let actSet = [...new Set(actName)]
-  
-  const indexOfLastCountry = currentPage * countriesPerPage
-  const indexOfFirstCountry = indexOfLastCountry - countriesPerPage 
-  const currentCountries = countries.slice(indexOfFirstCountry, indexOfLastCountry)
+  activities.map((act) => actName.push(act.name));
+  let actSet = [...new Set(actName)];
+
+  const indexOfLastCountry = currentPage * countriesPerPage;
+  const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;
+  const currentCountries = countries.slice(
+    indexOfFirstCountry,
+    indexOfLastCountry
+  );
+
 
   const nextPage = (pageNumber) => {
-    if(currentPage < Math.ceil(countries.length / countriesPerPage))
-    setCurrentPage(pageNumber);
+    if (currentPage < Math.ceil(countries.length / countriesPerPage))
+      setCurrentPage(pageNumber);
   };
-  
+
   const prevPage = (pageNumber) => {
-    if(currentPage > 1)
-    setCurrentPage(pageNumber);
+    if (currentPage > 1) setCurrentPage(pageNumber);
   };
 
   const filterByContinent = (event) => {
@@ -88,8 +91,6 @@ export default function Countries(props) {
   };
 
   return (
-
-    
     <PaginaPrincipal>
       <FiltCont>
         <CountrySearcher onSubmit={handleSubmit}>
@@ -100,7 +101,7 @@ export default function Countries(props) {
             value={state.country}
             onChange={handleChange}
             placeholder="Buscar..."
-            />
+          />
           <button type="submit">🔍</button>
         </CountrySearcher>
         <div>
@@ -114,13 +115,9 @@ export default function Countries(props) {
 
           <select onChange={filteredByActivity}>
             <option value="All">Todas</option>
-            {
-              actSet.map(act => {
-                return (
-                  <option value={act}>{act}</option>
-                )
-              })
-            }
+            {actSet.map((act) => {
+              return <option value={act}>{act}</option>;
+            })}
           </select>
 
           <select onChange={filterByContinent}>
@@ -140,27 +137,33 @@ export default function Countries(props) {
           <p>Continente</p>
         </div>
       </FiltCont>
-          <Pagination 
-          nextPage={nextPage}
-          prevPage={prevPage}
-          currentPage={currentPage}
-          countriesPerPage={countriesPerPage} 
-          countries={countries.length}
-          />
+      <Pagination
+        nextPage={nextPage}
+        prevPage={prevPage}
+        currentPage={currentPage}
+        countriesPerPage={countriesPerPage}
+        countries={countries.length}
+      />
 
-        {loading ? (<Loading />) : (
-      <PaisesContainer>
-        {currentCountries?.map((country) => (
-          <CardPais
-          key={country.countryId}
-          id={country.countryId}
-          flag={country.flag}
-            name={country.name}
-            continent={country.continent}
-          />
-        ))}
-      </PaisesContainer>
-        )}
+      {loading ? (
+        <Loading />
+      ) : (
+        <PaisesContainer>
+          {currentCountries.length ? (
+            currentCountries?.map((country) => (
+              <CardPais
+                key={country.countryId}
+                id={country.countryId}
+                flag={country.flag}
+                name={country.name}
+                continent={country.continent}
+              />
+            ))
+          ) : (
+            <NotFound />
+          )}
+        </PaisesContainer>
+      )}
       <img src={footerImg} alt="monuments" id="footer" />
     </PaginaPrincipal>
   );
@@ -184,7 +187,7 @@ const CountrySearcher = styled.form`
     width: 60rem;
     min-height: 4rem;
     padding: 0 1.5rem;
-    color: #2B3240;
+    color: #2b3240;
     font-size: 1.5rem;
     font-weight: 700;
     font-family: "Noto Sans Vai";
@@ -239,7 +242,7 @@ const FiltCont = styled.section`
       }
     }
   }
-  .filt-text{
+  .filt-text {
     font-size: 1.2rem;
     margin: 1rem 0;
   }
@@ -251,7 +254,6 @@ const PaginaPrincipal = styled.main`
     width: 100%;
     height: 40rem;
     bottom: -1px;
-    z-index: -1
+    z-index: -1;
   }
 `;
-
