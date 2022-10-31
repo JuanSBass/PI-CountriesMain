@@ -63,6 +63,10 @@ export default function Countries(props) {
     indexOfLastCountry
   );
 
+    if(countries === "País inexistente"){
+      return ( <NotFound />)
+    }
+
 
   const nextPage = (pageNumber) => {
     if (currentPage < Math.ceil(countries.length / countriesPerPage))

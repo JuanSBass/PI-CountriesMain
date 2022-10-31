@@ -19,10 +19,11 @@ export function getCountry(name) {
         dispatch({ type: GET_COUNTRIE, payload: data });
       })
       .catch((error) => {
-        dispatch({ type: GET_COUNTRIE, payload: error.message });
+        dispatch({ type: GET_COUNTRIE, payload: error.response.data });
       });
   };
 }
+
 
 export function getAllCountries() {
   return function (dispatch) {

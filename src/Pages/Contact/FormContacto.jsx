@@ -1,12 +1,14 @@
-
 import styled from "styled-components";
 
 const FormContacto = () => {
-
   return (
     <ContactContainerForm>
       <div>
-        <a target="_blank" href="https://www.linkedin.com/in/juan-santillan-velazco-6775a8243/" rel="noreferrer">
+        <a
+          target="_blank"
+          href="https://www.linkedin.com/in/juan-santillan-velazco-6775a8243/"
+          rel="noreferrer"
+        >
           <img
             src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
             alt="iconoIn"
@@ -25,7 +27,11 @@ const FormContacto = () => {
           <h1>Hub</h1>
         </a>
 
-        <a target="_blank" href="https://www.instagram.com/manzarekluke/" rel="noreferrer">
+        <a
+          target="_blank"
+          href="https://www.instagram.com/manzarekluke/"
+          rel="noreferrer"
+        >
           <h1>Instagram</h1>
           <img
             src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png"
@@ -73,12 +79,12 @@ const ContactContainerForm = styled.main`
       display: flex;
       align-items: center;
       justify-content: space-evenly;
-      h1{
+      h1 {
         font-size: 7rem;
         color: transparent;
         color: #000;
       }
-      &:hover{
+      &:hover {
         background-color: #fff;
       }
     }
@@ -123,6 +129,9 @@ const ContactContainerForm = styled.main`
       text-align: center;
       width: 31rem;
       margin: 1rem auto;
+      p{
+        font-size: 1.3rem;
+      }
       img {
         height: 20rem;
         width: 20rem;

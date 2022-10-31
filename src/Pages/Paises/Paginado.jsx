@@ -21,7 +21,7 @@ const Pagination = ({
           <div className="arrow-back"></div>
         </div>
       </button>
-      <p className="info_pages">
+      <p>
         Página {currentPage} de {Math.ceil(countries / countriesPerPage)}
       </p>
       <button className="next" onClick={() => nextPage(currentPage + 1)}>

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import notFound from "../Img/not-found.png";
 
+
 export const NotFound = () => {
 
   return(
@@ -12,7 +13,7 @@ export const NotFound = () => {
 };
 
 
-const NotFoundContainer = styled.div`
+export const NotFoundContainer = styled.div`
   grid-column: 2/3;
   display: flex;
   flex-direction: column;

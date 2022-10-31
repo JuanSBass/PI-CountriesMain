@@ -80,7 +80,7 @@ const Intro = styled.section`
   padding: 0 5rem;
   filter: drop-shadow(-1.5rem 0.5rem 1rem #435984);
   img {
-    height: 5rem;
+    height: 8rem;
     margin-top: 2rem;
   }
   h2 {

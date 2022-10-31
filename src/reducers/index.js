@@ -74,9 +74,7 @@ function rootReducer(state = initialState, action) {
         : allCountries.filter((country) => {
             let hasActivity = false;
             country.activities.forEach((activity) => {
-              if (activity.name === action.payload) {
-                hasActivity = true;
-              }
+              if (activity.name === action.payload) hasActivity = true;
             });
             if (hasActivity) return country;
           });
