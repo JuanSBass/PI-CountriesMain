@@ -33,7 +33,7 @@ export default function Countries(props) {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, "1500");
+    }, "2500");
   }, [dispatch]);
 
   const handleChange = (event) => {
