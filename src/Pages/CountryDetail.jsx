@@ -70,7 +70,7 @@ export default function CountryDetail(props) {
               season={act.season}
               duration={act.duration}
               dificult={act.dificult}
-              created={act.Country_Activity.createdAt.slice(0, 7)}
+              created={act.country_activity.createdAt.slice(0, 7)}
             />
           ))}
         </RelacionActivities>
