@@ -2,8 +2,15 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import avion from "../IMG/avion.png";
 import world from "../../Img/world.png";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getAllCountries } from "../../actions";
 
 export default function HomeMain() {
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(getAllCountries());
+  }, [dispatch])
   return (
     <HomeContainer>
       <Intro>
